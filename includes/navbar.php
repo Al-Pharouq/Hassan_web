@@ -1,4 +1,4 @@
-<header class="header"  data-aos="zoom-out-left" data-aos-delay="200">
+
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <!-- Logo -->
@@ -43,4 +43,3 @@
             </div>
         </nav>
         <!-- End of Navbar -->
-    </header>

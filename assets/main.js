@@ -1,8 +1,13 @@
-AOS.init({
-    duration: 1000, // Animation duration in milliseconds
-    offset: 120, // Offset (in pixels) from the original trigger point
-    delay: 200, // Delay in milliseconds
+
+document.addEventListener("DOMContentLoaded", function() {
+    AOS.init({
+        duration: 1000,
+        delay: 200,
+        once: true
+    });
 });
+
+
 
 
 window.addEventListener('load', function () {
@@ -17,4 +22,9 @@ window.addEventListener('load', function () {
             loadingPage.remove();
         });
     }, 0); // 2000 milliseconds = 2 seconds
+});
+
+document.addEventListener('aos:in', function(event) {
+    // Remove data-aos attribute to prevent further animations
+    event.detail.el.removeAttribute('data-aos');
 });

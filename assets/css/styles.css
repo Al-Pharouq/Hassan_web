@@ -15,11 +15,30 @@ body {
     background-image: url('../images/theme/background.jpg'); /* Adds a background image */
     background-size: cover; /* Scales the background to cover the viewport */
     background-attachment: fixed; /* Fixes background while scrolling */
+    overflow-x: hidden !important; /* Prevents horizontal scrolling */
+}
+
+.contact-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .logo img {
     height: 60px;
 }
+
+ /* Custom HR Styling */
+#style {
+    border: 0 ;
+    height: 10px;
+    background: #c27a39;
+    background-image: -webkit-linear-gradient(left, #ccc, #c27a39, #ccc);
+    background-image: -moz-linear-gradient(left, #ccc, #c27a39, #ccc);
+    background-image: -ms-linear-gradient(left, #ccc, #c27a39, #ccc);
+    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+    }
 
 .navbar {
     display: flex;
