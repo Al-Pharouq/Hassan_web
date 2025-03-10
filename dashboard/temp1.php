@@ -46,12 +46,20 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">إدارة صفحة "                                                                <?php echo $title; ?> "</h1>
+        <h1 class="h3 mb-0 text-gray-800">إدارة صفحة "<?php echo $title; ?> "</h1>
+
+        <div>
         <a href="add_content.php?headline_id=<?php echo urlencode($headline_id); ?>&temp_id=<?php echo urlencode($temp_id); ?>"
 
         class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fa-solid fa-plus fa-sm text-white-50"></i> إضافة نص
         </a>
+        <a href="edit_page.php?headline_id=<?php echo urlencode($headline_id);?>&temp_id=<?php echo urlencode($temp_id);?>"
+
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa-solid fa-pen-to-square fa-sm text-white-50"></i>  تعديل/ حذف الصفحة
+        </a>
+        </div>
     </div>
 
     <!-- Headline Intro Card -->
@@ -75,6 +83,7 @@
 
     <!-- Action Buttons -->
     <div class="d-sm-flex align-items-center justify-content-end mb-4">
+        <div>
         <a href="edit_intro.php?h_id=<?php echo $headline_id; ?>&temp_id=<?php echo $temp_id; ?>"
            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fa-solid fa-pen-to-square fa-sm text-white-50"></i> تعديل المقدمة
@@ -82,6 +91,7 @@
         <a href="delete_intro.php?h_id=<?php echo $headline_id; ?>&temp_id=<?php echo $temp_id; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fa-solid fa-delete-left fa-sm text-white-50"></i> حذف المقدمة
         </a>
+        </div>
     </div>
 
     <!-- Content Table -->

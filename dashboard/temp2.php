@@ -40,10 +40,17 @@ echo'
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">إدارة صفحة " ' . $title . ' "</h1>
-           <a href="add_content.php?headline_id=<?php echo urlencode($headline_id); ?>&temp_id=<?php echo urlencode($temp_id); ?>"
-            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i
-                    class="fa-solid fa-plus fa-sm text-white-50"></i> إضافة شخصية</a>
+                   <div>
+      <div>
+        <a href="edit_intro.php?h_id='. $headline_id.'&temp_id='. $temp_id.'"
+           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa-solid fa-pen-to-square fa-sm text-white-50"></i> تعديل المقدمة
+        </a>
+        <a href="delete_intro.php?h_id='.$headline_id.'&temp_id='. $temp_id.'" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa-solid fa-delete-left fa-sm text-white-50"></i> حذف المقدمة
+        </a>
+        </div>
+        </div>
         </div>';
         ?>
         
@@ -84,7 +91,7 @@ if (mysqli_num_rows($exe) > 0) {
                             <tr>
                                 <td>' . $caption . '</td>
                                 <td>' . (strlen($detail) > 100 ? substr($detail, 0, strrpos(substr($detail, 0, 100), ' ')) . "..." : $detail) . '</td>
-                                <td>' . $img . '</td>
+                                <td><img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 7rem;" src="../assets/images/img/' . $img . '" alt=".."></td>
                                 <td><a href="delete_table.php?headline_id=' .urlencode($head_id).'&c_id='.urlencode($c_id).'&temp_id='.urlencode($temp_id).'" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                             <i class="fa-solid fa-delete-left  fa-sm text-white-50"></i> حذف
                                         </a>

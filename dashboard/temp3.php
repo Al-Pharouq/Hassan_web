@@ -43,8 +43,18 @@ echo '
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">إدارة صفحة " ' . $title . ' "</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fa-solid fa-plus fa-sm text-white-50"></i> إضافة نص</a>
+                   <div>
+        <a href="add_content.php?headline_id='.urlencode($headline_id).' &temp_id='.urlencode($temp_id).'"
+
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa-solid fa-plus fa-sm text-white-50"></i> إضافة نص
+        </a>
+        <a href="edit_page.php?headline_id='.urlencode($headline_id).'&temp_id='.urlencode($temp_id).'"
+
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa-solid fa-pen-to-square fa-sm text-white-50"></i>  تعديل/ حذف الصفحة
+        </a>
+        </div>
         </div>
         <!-- Page Heading -->
         <!-- Earnings (Monthly) Card Example -->
@@ -72,17 +82,22 @@ echo '
             </div>
             <div class="card-body">
                 <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                        src="data:image/jpeg;base64,'.base64_encode($row['main_img']).'" alt="لاتوجد صورة">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 10rem;"
+                        src="../assets/images/img/'.$row['main_img'].'" alt="لاتوجد صورة">
                 </div>
             </div>
         </div>
-       <div class="d-sm-flex align-items-center justify-content-end mb-4">
-                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fa-solid fa-pen-to-square fa-sm text-white-50"></i>  تعديل المقدمة</a>
-                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fa-solid fa-delete-left fa-sm text-white-50"></i>  حذف المقدمة</a>
-        </div>';?>
+<div class="d-sm-flex align-items-center justify-content-end mb-4">
+    <a href="edit_intro.php?h_id='.urlencode($headline_id).'&temp_id='.urlencode($temp_id).'" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fa-solid fa-pen-to-square fa-sm text-white-50"></i> تعديل المقدمة
+    </a>
+    <a href="delete_intro.php?h_id='.urlencode($headline_id).'&temp_id='.urlencode($temp_id).'" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fa-solid fa-delete-left fa-sm text-white-50"></i> حذف المقدمة
+    </a>
+</div>
+';?>
+
+        
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -107,16 +122,24 @@ if (mysqli_num_rows($exe) > 0) {
 
     // Loop through all content rows
     while ($row = mysqli_fetch_assoc($exe)) {
-        $id = $row['c_id'];
+        $c_id = $row['c_id'];
         $caption = $row['caption'];
 
         // Only output rows when data exists
-        if (!empty($id) && !empty($caption)) {
+        if (!empty($c_id) && !empty($caption)) {
             echo '
                             <tr>
                                 <td>' . (strlen($caption) > 300 ? substr($caption, 0, strrpos(substr($caption, 0, 300), ' ')) . " ..." : $caption) . '</td>
-                                <td>تعديل</td>
-                                <td>حذف</td>
+                                <td>
+                                    <a href="delete_table.php?headline_id=' .urlencode($head_id).'&c_id='.urlencode($c_id).'&temp_id='.urlencode($temp_id).'" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                            <i class="fa-solid fa-delete-left  fa-sm text-white-50"></i> حذف
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="edit_table.php?headline_id=' .urlencode($head_id).'&c_id='.urlencode($c_id).'&temp_id='.urlencode($temp_id).'" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                        <i class="fa-solid fa-pen-to-square fa-sm text-white-50"></i> تعديل
+                                    </a>
+                                </td>
                             </tr>';
         }else {
             // Display message if no rows are found

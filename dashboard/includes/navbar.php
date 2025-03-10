@@ -68,10 +68,19 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">القوالب المتاحة:</h6>
-                <a class="collapse-item" href="blank.html">قالب 1</a>
-                <a class="collapse-item" href="blank.html">قالب 2</a>
-                <a class="collapse-item" href="blank.html">قالب 3</a>
-                <a class="collapse-item" href="blank.html">قالب 4</a>
+                <?php
+                 $sql = "SELECT temp_id, temp_name FROM template";
+                    $exe = mysqli_query($conn, $sql);
+                    if (!$exe) {
+                        die("Error: " . mysqli_error($conn));
+                    }
+                    while ($row = mysqli_fetch_assoc($exe)) {
+                        $temp_id = $row['temp_id'];
+                        $temp_name = $row['temp_name'];
+
+                        echo '<a class="collapse-item" href="template.php?temp_id=' . urlencode($temp_id) . '">' . $temp_name . '</a>';
+                    }
+                ?>
             </div>
         </div>
     </li>

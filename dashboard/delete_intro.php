@@ -10,10 +10,14 @@ if (!isset($_GET['h_id']) || !isset($_GET['temp_id'])) {
 $h_id = intval($_GET['h_id']);
 $temp_id = intval($_GET['temp_id']);
 
-// Update the headline record: set intro to NULL for the provided h_id and temp_id
-$sql = "UPDATE headline SET intro = NULL WHERE h_id = $h_id AND temp_id = $temp_id;";
-$exe = mysqli_query($conn, $sql);
+// For temp_id = 3, delete both intro and main_img; otherwise, delete only intro.
+if ($temp_id == 3) {
+    $sql = "UPDATE headline SET intro = NULL, main_img = NULL WHERE h_id = $h_id AND temp_id = $temp_id;";
+} else {
+    $sql = "UPDATE headline SET intro = NULL WHERE h_id = $h_id AND temp_id = $temp_id;";
+}
 
+$exe = mysqli_query($conn, $sql);
 if (!$exe) {
     echo "Delete Error: " . mysqli_error($conn);
     exit;

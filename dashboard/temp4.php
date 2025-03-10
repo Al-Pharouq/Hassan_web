@@ -41,9 +41,18 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
            <?php echo '<h1 class="h3 mb-0 text-gray-800">إدارة صفحة " ' . $title . ' "</h1>'?>
-           <a href="add_content.php?headline_id=<?php echo urlencode($headline_id); ?>&temp_id=<?php echo urlencode($temp_id); ?>"
-           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fa-solid fa-plus fa-sm text-white-50"></i> إضافة نص</a>
+           <div>
+        <a href="add_content.php?headline_id=<?php echo urlencode($headline_id); ?>&temp_id=<?php echo urlencode($temp_id); ?>"
+
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa-solid fa-plus fa-sm text-white-50"></i> إضافة نص
+        </a>
+        <a href="edit_page.php?headline_id=<?php echo urlencode($headline_id);?>&temp_id=<?php echo urlencode($temp_id);?>"
+
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa-solid fa-pen-to-square fa-sm text-white-50"></i>  تعديل/ حذف الصفحة
+        </a>
+        </div>
         </div>
         
 
