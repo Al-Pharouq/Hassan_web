@@ -32,6 +32,8 @@
     <!-- Link to the AOS (Animate On Scroll) library for scroll animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <!-- Load Google reCAPTCHA API -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
         <!-- Loading Page -->

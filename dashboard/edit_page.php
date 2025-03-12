@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <hr>
     
     <!-- Delete Form with confirmation -->
-    <form method="post" onsubmit="return confirm('Are you sure you want to delete this headline?');" action="edit_headline.php?headline_id=<?php echo $h_id; ?>&temp_id=<?php echo $temp_id; ?>">
+    <form method="post" onsubmit="return confirm('Are you sure you want to delete this headline?');">
         <button type="submit" name="delete" class="btn btn-danger">Delete Headline</button>
     </form>
 </div>

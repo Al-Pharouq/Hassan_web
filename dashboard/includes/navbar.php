@@ -1,4 +1,3 @@
-<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="
     padding-right: 0px;
 ">
@@ -41,7 +40,7 @@
                 <h6 class="collapse-header">الصفحات المتاحة:</h6>
                 <?php
                 require_once 'config.php';
-                 $sql = "SELECT h_id, title, temp_id FROM headline";
+                 $sql = "SELECT h_id, title, temp_id FROM headline ORDER BY sort_order ASC";
                     $exe = mysqli_query($conn, $sql);
                     if (!$exe) {
                         die("Error: " . mysqli_error($conn));
@@ -55,6 +54,12 @@
                 ?>
             </div>
         </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="reorder_headlines.php">
+            <i class="fas fa-solid fa-sort"></i>
+            <span> ترتيب الصفحات </span></a>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
@@ -90,6 +95,14 @@
         <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-solid fa-sitemap"></i>
             <span>شجرة العائلة</span></a>
+    </li>
+    </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+        <a class="nav-link" href="links.php">
+            <i class="fas fa-solid fa-link"></i>
+            <span> المصادر </span></a>
     </li>
 
     <!-- Divider -->

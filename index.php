@@ -11,7 +11,7 @@ require_once "./includes/navbar.php";
 require_once "./includes/config.php";
 
 // Query the headline table to fetch all needed rows
-$query = "SELECT h_id, temp_id FROM headline "; // Adjust the query as needed
+$query = "SELECT h_id, temp_id FROM headline ORDER BY sort_order ASC "; // Adjust the query as needed
 $result = $conn->query($query);
 
 if ($result && $result->num_rows > 0) {

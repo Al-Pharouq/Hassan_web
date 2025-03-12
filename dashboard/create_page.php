@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Create New Headline</h1>
     <!-- Form action points to the same file and includes enctype for file uploads -->
-    <form method="post" action="new_headline.php?temp_id=<?php echo $temp_id; ?>" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Headline Title</label>
             <input type="text" name="title" id="title" class="form-control" placeholder="Enter headline title" required>

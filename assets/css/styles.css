@@ -18,6 +18,37 @@ body {
     overflow-x: hidden !important; /* Prevents horizontal scrolling */
 }
 
+/* Custom Button Style */
+.custom-btn {
+    background: linear-gradient(to right, #a17041, #52734d); /* Gradient background */
+    color: white; /* White text */
+    font-size: 1rem; /* Standard font size */
+    font-weight: bold;
+    padding: 12px 24px; /* Padding for a comfortable click area */
+    border: none;
+    border-radius: 8px; /* Smooth rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Smooth transition effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove default link styling */
+}
+
+/* Hover Effect */
+.custom-btn:hover {
+    background: linear-gradient(to right, #825c32, #40534c); /* Darker gradient on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Active/Click Effect */
+.custom-btn:active {
+    transform: scale(0.98); /* Slight scale-down effect */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Reduce shadow */
+}
+
+
 .contact-form {
     background: #fff;
     padding: 30px;
@@ -357,3 +388,4 @@ footer{
     opacity: 0; /* Fade out */
     pointer-events: none; /* Disable interactions */
 }
+
