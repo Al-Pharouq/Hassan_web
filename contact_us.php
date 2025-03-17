@@ -4,6 +4,8 @@
 // Start session if needed (for CSRF tokens or other purposes)
 // session_start();
 
+require_once 'includes/header.php';
+require_once 'includes/navbar.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Replace with your reCAPTCHA secret key
     $secretKey = '6Le20fEqAAAAAIi9feOv2dXeTqUcQB09VngQzh-o';
@@ -59,39 +61,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-require_once 'includes/header.php';
-require_once 'includes/navbar.php';
+
 ?>
 
 
   <div class="container mt-5">
-    <h2>Contact Us</h2>
+    <h2>تواصل بنا</h2>
+
     <?php if (!empty($errors)): ?>
       <div class="alert alert-danger">
         <?php foreach($errors as $error): ?>
           <p><?php echo htmlspecialchars($error); ?></p>
+
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
 
     <?php if (isset($success_message)): ?>
-      <div class="alert alert-success">
-        <p><?php echo htmlspecialchars($success_message); ?></p>
+        <div class="alert alert-success">
+            <p><?php echo htmlspecialchars($success_message); ?></p>
+
       </div>
     <?php else: ?>
       <form action="contact_us.php" method="post" novalidate>
         <div class="mb-3">
-          <label for="name" class="form-label">Name:</label>
+          <label for="name" class="form-label">الاسم:</label>
+
           <input type="text" name="name" id="name" class="form-control" required>
         </div>
 
         <div class="mb-3">
-          <label for="email" class="form-label">Email:</label>
+          <label for="email" class="form-label">البريد الإلكتروني:</label>
+
           <input type="email" name="email" id="email" class="form-control" required>
         </div>
 
         <div class="mb-3">
-          <label for="enquiry" class="form-label">Enquiry:</label>
+          <label for="enquiry" class="form-label">الاستفسار:</label>
+
           <textarea name="enquiry" id="enquiry" class="form-control" rows="5" required></textarea>
         </div>
 
@@ -100,7 +107,8 @@ require_once 'includes/navbar.php';
           <div class="g-recaptcha" data-sitekey="6Le20fEqAAAAAPysuORb6aP3C1PsJ8O3qsgIqKsh"></div>
         </div>
 
-        <button type="submit" class="custom-btn mb-4">Submit</button>
+          <button type="submit" class="custom-btn mb-4">إرسال</button>
+
       </form>
     <?php endif; ?>
   </div>

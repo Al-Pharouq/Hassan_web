@@ -3,7 +3,10 @@ require_once 'includes/config.php';
 
 // Ensure the required parameters are provided
 if (!isset($_GET['h_id']) || !isset($_GET['temp_id'])) {
-    echo "Missing parameters.";
+    echo "المعلمات المطلوبة مفقودة.";
+
+
+
     exit;
 }
 
@@ -19,7 +22,10 @@ if ($temp_id == 3) {
 
 $exe = mysqli_query($conn, $sql);
 if (!$exe) {
-    echo "Delete Error: " . mysqli_error($conn);
+    echo "خطأ في الحذف: " . mysqli_error($conn);
+
+
+
     exit;
 }
 

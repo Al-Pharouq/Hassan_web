@@ -54,7 +54,7 @@
                     <?php endwhile; ?>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php#search">ابحث عن اسمك</a>
+                        <a class="nav-link" href="search.php">ابحث عن اسمك</a>
                     </li>
                     </ul>
                 </div>

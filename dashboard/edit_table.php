@@ -7,7 +7,8 @@ require_once 'includes/config.php';
 
 // Check if required parameters are provided
 if (!isset($_GET['c_id']) || !isset($_GET['headline_id']) || !isset($_GET['temp_id'])) {
-    echo "<p>المعلمات المطلوبة مفقودة</p>";
+    echo "<p>Required parameters are missing</p>";
+
     require_once "includes/footer.php";
     exit;
 }
@@ -27,7 +28,8 @@ if ($temp_id == 2) {
 
 $result = mysqli_query($conn, $select_query);
 if (!$result) {
-    die("خطأ: " . mysqli_error($conn));
+    die("Error: " . mysqli_error($conn));
+
 }
 
 if ($row = mysqli_fetch_assoc($result)) {
@@ -38,7 +40,8 @@ if ($row = mysqli_fetch_assoc($result)) {
         $img_value = (isset($row['img']) && !empty($row['img'])) ? $row['img'] : 'sheikh.png';
     }
 } else {
-    echo "<p>السجل غير موجود.</p>";
+    echo "<p>Record not found.</p>";
+
     require_once "includes/footer.php";
     exit;
 }
@@ -104,22 +107,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: temp{$temp_id}.php?h_id=$headline_id");
         exit;
     } else {
-        echo "<p>خطأ أثناء تحديث السجل: " . mysqli_error($conn) . "</p>";
+        echo "<p>Error updating record: " . mysqli_error($conn) . "</p>";
+
     }
 }
 ?>
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">تعديل النص</h1>
+    <h1 class="h3 mb-4 text-gray-800">Edit Text</h1>
+
     <!-- Include enctype for file uploads -->
     <form method="post" action="edit_table.php?c_id=<?php echo $c_id; ?>&headline_id=<?php echo $headline_id; ?>&temp_id=<?php echo $temp_id; ?>" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="caption">النص</label>
+            <label for="caption">Text</label>
+
             <textarea name="caption" id="caption" class="form-control" rows="3" required><?php echo htmlspecialchars($caption_value); ?></textarea>
         </div>
         <?php if ($temp_id != 3): // For temp_id 1 and 2, show detail field ?>
         <div class="form-group">
-            <label for="detail">المصدر</label>
+            <label for="detail">Source</label>
+
             <textarea name="detail" id="detail" class="form-control" rows="3" required><?php echo htmlspecialchars($detail_value); ?></textarea>
         </div>
         <?php endif; ?>
@@ -132,7 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="checkbox" name="delete_image" class="form-check-input" id="delete_image">
                 </div>
             <?php endif; ?>
-            <label for="img_file">رفع الصورة الجديدة</label>
+            <label for="img_file">Upload New Image</label>
+
             <input type="file" name="img_file" id="img_file" class="form-control-file">
             <p>مسموح بـ png, jpg, svg, jpeg فقط</p>
             <?php if (isset($error_message) && $error_message): ?>
@@ -140,7 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
         </div>
         <?php endif; ?>
-        <button type="submit" class="btn btn-primary">تحديث</button>
+        <button type="submit" class="btn btn-primary">Update</button>
+
     </form>
 </div>
 

@@ -9,7 +9,10 @@ require_once 'includes/config.php';
 if (isset($_GET['temp_id'])) {
     $temp_id = intval($_GET['temp_id']);
 } else {
-    echo "<p>No template provided.</p>";
+    echo "<p>لم يتم توفير القالب.</p>";
+
+
+
     require_once "includes/footer.php";
     exit;
 }
@@ -37,13 +40,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $allowed_exts = array('svg', 'png', 'jpg', 'jpeg');
         
         if (!in_array($file_ext, $allowed_exts)) {
-            $error_message = "Only SVG, PNG, JPG, and JPEG files are allowed for the logo.";
+                $error_message = "فقط ملفات SVG و PNG و JPG و JPEG مسموح بها للشعار.";
+
+
+
         } else {
             // Rename file using current date/time
             $logo_img_value = date("YmdHis") . '.' . $file_ext;
             // Adjust the destination folder as needed
             if (!move_uploaded_file($file_tmp, "../assets/images/icons/" . $logo_img_value)) {
-                $error_message = "Failed to upload logo image.";
+                $error_message = "فشل في تحميل صورة الشعار.";
+
+
+
             }
         }
     }
@@ -59,7 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: temp{$temp_id}.php?h_id=" . urlencode($headline_id));
             exit;
         } else {
-            echo "<p>Error inserting record: " . mysqli_error($conn) . "</p>";
+            echo "<p>خطأ في إدخال السجل: " . mysqli_error($conn) . "</p>";
+
+
+
         }
     } else {
         echo "<p class='text-danger'>$error_message</p>";
@@ -68,25 +80,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Create New Headline</h1>
+    <h1 class="h3 mb-4 text-gray-800">إنشاء عنوان جديد</h1>
+
+
+
     <!-- Form action points to the same file and includes enctype for file uploads -->
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="title">Headline Title</label>
-            <input type="text" name="title" id="title" class="form-control" placeholder="Enter headline title" required>
+            <label for="title">عنوان العنوان</label>
+
+
+
+            <input type="text" name="title" id="title" class="form-control" placeholder="Enter Headline Title" required>
+
+
         </div>
         <?php if ($temp_id == 1 || $temp_id == 3): ?>
         <div class="form-group">
-            <label for="intro">Introduction</label>
-            <textarea name="intro" id="intro" class="form-control" rows="5" placeholder="Enter introduction" required></textarea>
+            <label for="intro">مقدمة</label>
+
+
+
+            <textarea name="intro" id="intro" class="form-control" rows="5" placeholder="Enter Introduction" required></textarea>
+
+
         </div>
         <?php endif; ?>
         <div class="form-group">im
-            <label for="logo_img">Logo Image</label>
+            <label for="logo_img">صورة الشعار</label>
+
+
+
             <input type="file" name="logo_img" id="logo_img" class="form-control-file">
-            <small class="form-text text-muted">Allowed file types: SVG, PNG, JPG, JPEG. Default: default_logo.png</small>
+            <small class="form-text text-muted">Allowed file types: SVG, PNG, JPG, and JPEG. Default: default_logo.png</small>
+
+
         </div>
-        <button type="submit" class="btn btn-primary">Create Headline</button>
+        <button type="submit" class="btn btn-primary">إنشاء عنوان</button>
+
+
+
     </form>
 </div>
 

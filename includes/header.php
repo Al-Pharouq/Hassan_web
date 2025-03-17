@@ -1,3 +1,20 @@
+<?php
+session_start();
+require_once('includes/config.php');
+
+// Check if this is the user's first visit in the session
+if (!isset($_SESSION['visited'])) {
+    $_SESSION['visited'] = true; // Mark session as visited
+
+    // Increment visit count in database
+    $conn->query("UPDATE visits SET visit_count = visit_count + 1 WHERE id = 1");
+}
+
+// Retrieve the current visit count
+$result = $conn->query("SELECT visit_count FROM visits WHERE id = 1");
+$row = $result->fetch_assoc();
+$visit_count = $row['visit_count'];
+?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>

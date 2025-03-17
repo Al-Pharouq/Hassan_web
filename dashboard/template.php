@@ -9,7 +9,8 @@ require_once 'includes/config.php';
 if (isset($_GET['temp_id'])) {
     $temp_id = intval($_GET['temp_id']);
 } else {
-    echo "<p>No template provided.</p>";
+    echo "<p>لم يتم توفير القالب.</p>";
+
     require_once "./includes/footer.php";
     exit;
 }
@@ -26,7 +27,8 @@ if (isset($_GET['temp_id'])) {
     if ($row = mysqli_fetch_assoc($exe_template)) {
         $temp_img = $row['temp_img'];
     } else {
-        echo "<p>Record not found.</p>";
+        echo "<p>السجل غير موجود.</p>";
+
         require_once "./includes/footer.php";
         exit;
     }
@@ -36,9 +38,11 @@ if (isset($_GET['temp_id'])) {
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">قوالب جاهزة</h1>
+            <h1 class="h3 mb-0 text-gray-800">Ready Templates</h1>
+
             <a href="create_page.php?temp_id=<?php echo urlencode($temp_id); ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-plus fa-sm text-white-50"></i> إنشاء صفحة</a>
+                    class="fas fa-plus fa-sm text-white-50"></i> Create Page</a>
+
         </div>
 
         <!-- Content Row -->

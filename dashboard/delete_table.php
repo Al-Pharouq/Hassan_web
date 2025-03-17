@@ -3,7 +3,10 @@ require_once('includes/config.php');
 
 // Check if the content id is provided
 if (!isset($_GET['c_id'])) {
-    echo "Content id not provided.";
+    echo "لم يتم توفير معرف المحتوى.";
+
+
+
     exit;
 }
 
@@ -14,7 +17,10 @@ $sql = "DELETE FROM content WHERE c_id = $c_id;";
 $exe = mysqli_query($conn, $sql);
 
 if (!$exe) {
-    echo "Delete Error: " . mysqli_error($conn);
+    echo "خطأ في الحذف: " . mysqli_error($conn);
+
+
+
     exit;
 }
 

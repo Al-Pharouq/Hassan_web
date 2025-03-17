@@ -92,7 +92,7 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="search.php">
             <i class="fas fa-fw fa-solid fa-sitemap"></i>
             <span>شجرة العائلة</span></a>
     </li>

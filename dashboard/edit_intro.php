@@ -7,7 +7,8 @@ require_once 'includes/config.php';
 
 // Check if the headline id and temp_id are provided
 if (!isset($_GET['h_id']) || !isset($_GET['temp_id'])) {
-    echo "<p>No headline id provided.</p>";
+    echo "<p>لم يتم توفير معرف العنوان.</p>";
+
     require_once "includes/footer.php";
     exit;
 }
@@ -34,7 +35,8 @@ if ($row = mysqli_fetch_assoc($result)) {
         $main_img_value = (isset($row['main_img']) && !empty($row['main_img'])) ? $row['main_img'] : 'poem.png';
     }
 } else {
-    echo "<p>Record not found.</p>";
+    echo "<p>السجل غير موجود.</p>";
+
     require_once "includes/footer.php";
     exit;
 }
@@ -66,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $allowed_exts = array('svg', 'png', 'jpg', 'jpeg');
             
             if (!in_array($file_ext, $allowed_exts)) {
-                $error_message = "Only SVG, PNG, JPG, and JPEG files are allowed.";
+                $error_message = "مسموح بـ png, jpg, svg, jpeg فقط";
             } else {
                 // Optionally delete the old image if not default
                 if ($new_img_value !== 'poem.png' && !empty($new_img_value) && file_exists("../assets/images/img/" . $new_img_value)) {
@@ -75,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Rename file using current date/time
                 $new_img_value = date("YmdHis") . '.' . $file_ext;
                 if (!move_uploaded_file($file_tmp, "../assets/images/img/" . $new_img_value)) {
-                    $error_message = "Failed to upload image.";
+                    $error_message = "فشل في تحميل الصورة.";
                 }
             }
         }
@@ -94,13 +96,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: temp{$temp_id}.php?h_id=$h_id");
         exit;
     } else {
-        echo "<p>Error updating record: " . mysqli_error($conn) . "</p>";
+            echo "<p>Error updating record: " . mysqli_error($conn) . "</p>";
+
     }
 }
 ?>
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">تعديل المقدمة</h1>
+    <h1 class="h3 mb-4 text-gray-800">Edit Introduction</h1>
+
     <!-- Include enctype for file uploads -->
     <form method="post" action="edit_intro.php?h_id=<?php echo $h_id; ?>&temp_id=<?php echo $temp_id; ?>" enctype="multipart/form-data">
         <div class="form-group">

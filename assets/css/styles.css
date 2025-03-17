@@ -221,6 +221,10 @@ sub{
     padding: 1rem;
 }
 
+.form_c{
+    background-color: rgb(105 114 108) !important;
+}
+
 
 .intro-text a {
     display: inline-flex; /* Use inline-flex for inline-level flex container */
@@ -268,7 +272,7 @@ sub{
 
 
 .footer {
-    background: linear-gradient(to right, #a17041, #52734d); /* Gradient background */
+    background: linear-gradient(to right, #a18041, #52734dd9);
     color: white;
   }
   
@@ -387,5 +391,9 @@ footer{
 .loading-page.hidden {
     opacity: 0; /* Fade out */
     pointer-events: none; /* Disable interactions */
+}
+
+[data-aos] {
+    transform-origin: center;
 }
 

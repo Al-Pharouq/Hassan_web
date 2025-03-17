@@ -14,8 +14,10 @@ if (!$result) {
 ?>
 
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Reorder Headlines</h1>
-    <p>Drag and drop the headlines to reorder them. Click "Save Order" when finished.</p>
+    <h1 class="h3 mb-4 text-gray-800">إعادة ترتيب العناوين</h1>
+
+    <p>اسحب وأفلت العناوين لإعادة ترتيبها. انقر على "حفظ الترتيب" عند الانتهاء.</p>
+
     
     <ul id="sortable" class="list-group">
         <?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -26,7 +28,8 @@ if (!$result) {
         <?php endwhile; ?>
     </ul>
     
-    <button id="saveOrder" class="btn btn-primary mt-3">Save Order</button>
+    <button id="saveOrder" class="btn btn-primary mt-3">حفظ الترتيب</button>
+
 </div>
 
 <!-- Include SortableJS (or jQuery UI) for drag-and-drop -->
