@@ -1,7 +1,7 @@
 <?php
 require_once "./includes/header.php";
 ?>
-<header class="header"  data-aos="zoom-out-left" data-aos-delay="200">
+<header class="header" data-sal="slide-down" data-sal-duration="1200" data-sal-easing="ease-out">
 <?php
 require_once "./includes/navbar.php";
 ?>

@@ -1,3 +1,38 @@
+/* Prevents animations from making the page too wide */
+html, body {
+    overflow-x: hidden; /* Stops horizontal scrolling */
+}
+
+.animation-item {
+    max-width: 100%; /* Ensures animations stay inside the viewport */
+    overflow: hidden; /* Hides any unwanted expansion */
+    transform: translateX(0) !important; /* Prevents elements from shifting out */
+    width: 100vw; /* Ensures it stays within the viewport */
+}
+
+/* Fixes animated elements that might shift the page */
+@media (max-width: 768px) {
+    [data-sal] {
+        transform: none !important; /* Prevents unwanted movement */
+    }
+}
+
+.animation-item {
+    clip-path: inset(0 0 0 0); /* Prevents elements from expanding outside */
+    transform: translateX(5%) !important; /* Reduces movement */
+}
+
+.animation-container {
+    contain: strict; /* Prevents animations from affecting other elements */
+}
+
+.form-control{
+    font-size: 0.8rem !important;
+}
+
+
+
+
 body {
     /* General styles */
     margin: 0rem 5rem;; /* Removes default margin */
@@ -392,8 +427,21 @@ footer{
     opacity: 0; /* Fade out */
     pointer-events: none; /* Disable interactions */
 }
+/* Hide elements before animation
+.animate {
+    opacity: 0;
+    transform: translateY(50px);
+} */
 
-[data-aos] {
-    transform-origin: center;
+/* Custom animation effects */
+.zoom-in {
+    transform: scale(0.8);
 }
 
+.fade-right {
+    transform: translateX(-50px);
+}
+
+.fade-up {
+    transform: translateY(50px);
+}

@@ -37,7 +37,7 @@
         <h5 class="text-white">للتواصل</h5>
         <p class="text-white">admin@hassaan.net</p>
         <!-- Contact Us button added -->
-        <a href="contact_us.php" class="custom-btn mt-2">تواصل بنا</a>
+        <a href="contact_us.php" class="custom-btn mt-2 mb-4">تواصل بنا</a>
       </div>
     </div>
 
@@ -49,5 +49,13 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 <script src="assets/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    sal({
+        threshold: 0.2,  // Trigger animation when 20% of the element is visible
+        once: false,      // Re-run animations when scrolling back
+    });
+});
+</script>
 </body>
 </html>

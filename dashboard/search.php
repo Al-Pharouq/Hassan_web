@@ -1,15 +1,15 @@
 <?php
+ob_start();
+require_once 'includes/header.php';
+require_once 'includes/navbar.php';
+require_once 'includes/user.php';
 require_once 'includes/config.php';
 
 // دالة لتطبيع النص العربي لضمان التناسق (إزالة التشكيل، التطويل، وتحويل أشكال الحروف)
 function normalizeArabic($text) {
-    // تحويل أشكال الألف المختلفة إلى ألف قياسية
     $text = preg_replace('/[إأآا]/u', 'ا', $text);
-    // تحويل الياء المختلفة (مثلاً ى) إلى ي
     $text = preg_replace('/[ى]/u', 'ي', $text);
-    // إزالة التشكيل (الحركات)
     $text = preg_replace('/[\x{064B}-\x{0652}]/u', '', $text);
-    // إزالة التطويل
     $text = preg_replace('/\x{0640}/u', '', $text);
     return $text;
 }
@@ -18,7 +18,6 @@ function normalizeArabic($text) {
 function getAncestors($conn, $person) {
     $lineage = [$person['name']]; // ابدأ بالشخص نفسه
     $father_id = $person['father_id'];
-
     while ($father_id) {
         $stmt = $conn->prepare("SELECT * FROM family_members WHERE id = ?");
         $stmt->bind_param("i", $father_id);
@@ -32,56 +31,46 @@ function getAncestors($conn, $person) {
             break;
         }
     }
-    
-    return $lineage; // إرجاع الأجداد فقط
+    return $lineage;
 }
 
 // وظيفة للتحقق مما إذا كانت الأسماء الثلاثة هي أول ثلاثة أسماء في السلالة
 function containsOrderedNames($lineage, $names) {
-    // التأكد من وجود ثلاثة عناصر على الأقل في السلالة
     if (count($lineage) < 3) {
         return false;
     }
-    // تحقق من أن الأسماء الثلاثة الأولى تتطابق مع المدخلات بالترتيب
-    return (
-        $lineage[0] === $names[0] &&
-        $lineage[1] === $names[1] &&
-        $lineage[2] === $names[2]
-    );
+    return ($lineage[0] === $names[0] && $lineage[1] === $names[1] && $lineage[2] === $names[2]);
 }
 
 // وظيفة للبحث عن الأشخاص الذين تبدأ سلالتهم بالأسماء الثلاثة المدخلة بالترتيب الصحيح
 function findMatchingAncestors($conn, $names) {
     $stmt = $conn->query("SELECT * FROM family_members");
     $matchingResults = [];
-
     while ($person = $stmt->fetch_assoc()) {
-        // متابعة البحث فقط إذا كان اسم الشخص يطابق الاسم الأول للمدخلات
+        // البحث فقط إذا كان اسم الشخص يطابق الاسم الأول
         if ($person['name'] !== $names[0]) {
             continue;
         }
-        $lineage = getAncestors($conn, $person); // استرجاع السلالة (الشخص + الأجداد)
+        $lineage = getAncestors($conn, $person);
         if (containsOrderedNames($lineage, $names)) {
             $matchingResults[] = [
+                "id" => $person["id"],
                 "person" => $person["name"],
-                "full_name" => implode(" بن ", $lineage) // عرض السلالة الكاملة
+                "full_name" => implode(" بن ", $lineage)
             ];
         }
     }
-    
     return $matchingResults;
 }
 
-// تنفيذ البحث عند تقديم النموذج
-$results = [];
 $error = '';
+$results = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // تطبيع المدخلات للتناسق
+    // تطبيع المدخلات للتناسق وتقسيمها بواسطة المسافة
     $names_input = normalizeArabic(trim($_POST["names"]));
-    // تقسيم المدخلات باستخدام المسافة
-    $names_arr = array_map(function($name) {
-        return normalizeArabic(trim($name));
-    }, explode(' ', $names_input));
+    $names_arr = array_map('trim', explode(' ', $names_input));
+    // تطبيع كل اسم
+    $names_arr = array_map('normalizeArabic', $names_arr);
     
     if (count($names_arr) !== 3) {
         $error = "يجب إدخال ثلاثة أسماء مفصولة بمسافة.";
@@ -89,9 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $results = findMatchingAncestors($conn, $names_arr);
     }
 }
-
-require_once 'includes/header.php';
-require_once 'includes/navbar.php';
 ?>
 
 <div class="container my-4">
@@ -99,13 +85,12 @@ require_once 'includes/navbar.php';
         <div class="col-md-12">
             <!-- Search Card -->
             <div class="card shadow mb-4">
-                <div class="card-header form_c text-white">
+                <div class="card-header bg-gradient-primary text-white">
                     <h4 class="mb-0">بحث في شجرة آل حسان</h4>
                 </div>
                 <div class="card-body">
                     <form method="post" class="mb-3">
                         <div class="input-group">
-                            <!-- Updated placeholder to match splitting by space -->
                             <input type="text" name="names" class="form-control" placeholder="أدخل ثلاثة أسماء مفصولة بمسافة" aria-label="Search">
                             <div class="input-group-append">
                                 <button class="btn" type="submit">
@@ -114,11 +99,11 @@ require_once 'includes/navbar.php';
                             </div>
                         </div>
                     </form>
-
+                    
                     <?php if (!empty($error)): ?>
                         <div class="alert alert-warning"><?php echo htmlspecialchars($error); ?></div>
                     <?php endif; ?>
-
+                    
                     <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)): ?>
                         <h5 class="mb-3">نتائج البحث:</h5>
                         <?php if (!empty($results)): ?>
@@ -127,12 +112,32 @@ require_once 'includes/navbar.php';
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>الاسم</th>
+                                            <th>السلالة</th>
+                                            <th>إضافة ابن</th>
+                                            <th>تعديل</th>
+                                            <th>حذف</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($results as $result): ?>
                                             <tr>
-                                                <td><?php echo htmlspecialchars($result["full_name"]) . " حسان "; ?></td>
+                                                <td><?php echo htmlspecialchars($result["person"]); ?></td>
+                                                <td><?php echo htmlspecialchars($result["full_name"]) . " حسان"; ?></td>
+                                                <td>
+                                                    <a href="add_child.php?parent_id=<?php echo urlencode($result['id']); ?>" class="btn btn-success btn-sm">
+                                                        <i class="fas fa-plus"></i> إضافة ابن
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="edit_person.php?id=<?php echo urlencode($result['id']); ?>" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-edit"></i> تعديل
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="delete_person.php?id=<?php echo urlencode($result['id']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من حذف هذا الشخص؟');">
+                                                        <i class="fas fa-trash-alt"></i> حذف
+                                                    </a>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -149,6 +154,7 @@ require_once 'includes/navbar.php';
 </div>
 
 <?php
-require_once 'includes/footer.php'; 
+require_once 'includes/footer.php';
 $conn->close();
+ob_end_flush();
 ?>
